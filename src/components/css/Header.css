@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+h1 {
+    margin: 80px;
+}
+
+header div {
+    display: flex;
+}
+header p {
+    margin-right: 40px;
+    margin-bottom: 0px;
+}
+
+header input {
+    margin-right: 5px;
+}
+
+header button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+header img {
+    width: 20px;
+}

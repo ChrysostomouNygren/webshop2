@@ -1,0 +1,28 @@
+.cart {
+    display: grid;
+    grid-template-columns: 25% 25%;
+    justify-content: center;
+}
+
+.cart-img {
+    width: 90px;
+    margin-left: 80px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.cart-button {
+    background-color: transparent;
+    border: 3px solid lightgray;
+    border-radius: 10%;
+}
+
+.cart-button:active {
+    background-color: lightgray;
+    color: lightslategray;
+}
