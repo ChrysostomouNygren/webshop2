@@ -30,26 +30,24 @@ function Profile() {
     console.log(response.data);
     setName(response.data.name.firstname);
     setUserData(response.data);
-    const { email, phone, address } = userData;
-    const { city, street, number, zipcode } = address;
   }
+  const { email, phone, address } = userData;
+  const { city, street, number, zipcode } = address;
 
   useEffect(() => {
     getUser();
   }, []);
 
 
-  console.log(token);
-
   return (
     <div>
       <Header />
       <h1>Hej {name}!</h1>
       <h5>Dina nuvarande uppgifter:</h5>
-      {/* <p>Email: {email}</p>
+      <p>Email: {email}</p>
       <p>Tel: {phone}</p>
       <p>Adress: {street} {number}<br/>
-      {zipcode} {city}</p> */}
+      {zipcode} {city}</p>
       <ExitBtn />
       <Footer />
     </div>
