@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 
 // komponenter
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ExitBtn from "../components/ExitBtn";
 
 // states
 import {
@@ -21,7 +21,6 @@ function Profile() {
   const [token, setToken] = useRecoilState(authState);
   const [name, setName] = useRecoilState(nameState);
   const [userData, setUserData] = useRecoilState(userDataState);
-  let navigate = useNavigate();
 
   async function getUser() {
     const response = await axios.get(
@@ -39,9 +38,6 @@ function Profile() {
     getUser();
   }, []);
 
-  function logOut() {
-    setToken("");
-  }
 
   console.log(token);
 
@@ -54,7 +50,7 @@ function Profile() {
       <p>Tel: {phone}</p>
       <p>Adress: {street} {number}<br/>
       {zipcode} {city}</p> */}
-      <button onClick={() => [logOut(), navigate(`/login`)]}>Logga ut</button>
+      <ExitBtn />
       <Footer />
     </div>
   );
