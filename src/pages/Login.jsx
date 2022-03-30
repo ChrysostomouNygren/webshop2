@@ -30,7 +30,10 @@ function Login() {
     setUser(response.data.userId)
     console.log(response.data)
 
-    if (response.data.token) {
+    if (response.data.userId == 1216874387060039) {
+      navigate("/admin");
+    } 
+    else if (response.data.token) {
       navigate("/profile");
     }
   }
