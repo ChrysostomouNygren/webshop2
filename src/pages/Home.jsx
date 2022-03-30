@@ -1,8 +1,9 @@
 import React from "react";
-import Footer from "../components/Footer";
 
+// components
 import Header from "../components/Header";
 import ProductList from "../components/ProductList";
+import Footer from "../components/Footer";
 
 function Home() {
   return (

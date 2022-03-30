@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import axios from "axios";
 
 // css
@@ -9,13 +8,22 @@ import "./css/ProductList.css";
 import add from "./resources/add-tool-pngrepo-com.png";
 
 // states
+import { useRecoilState } from "recoil";
 import { cartState } from "../recoil/cart/atom";
+import { idState } from "../recoil/id/atom";
+
+// components
+import Popup from "./Popup";
 
 function ProductList() {
   // Jag hämtar produkterna i en array, då de alla hänger i en array redan.
   const [products, setProducts] = useState([]);
   // Cart kommer ifrån atomen där den "sparar" vårt innehåll.
   const [cart, setCart] = useRecoilState(cartState);
+  // Popup är kopplat till id-atomen, så att rätt information skickas med till bilden som klickas på.
+  const [currentPopup, setCurrentPopup] = useRecoilState(idState);
+  // modalen (popupen) är default false, vid klick blir den true och poppas upp
+  const [modalShow, setModalShow] = useState(false);
 
   // Använder mig av axios för att hämta produkterna från backenden.
   function getProducts() {
@@ -47,28 +55,33 @@ function ProductList() {
     getProducts();
   }, []);
 
+
   return (
     <div className="productList">
-      {products.map((product) => {
-        return (
-          <span className="product" key={product.id}>
-            <img src={product.image} alt={product.title} value={product.id} />
-            <div>
-              <span>
-                <h4>{product.title}</h4>
-                <h4>€{product.price}</h4>
-              </span>
-              <img
-                className="button"
-                key={product.id}
-                src={add}
-                alt="add"
-                onClick={() => handleAdd(product)}
-              />
-            </div>
-          </span>
-        );
-      })}
+      <Popup show={modalShow} onHide={() => setModalShow(false)} />
+      {products.map((product) => (
+        <span className="product" key={product.id}>
+          <img
+            src={product.image}
+            alt={product.title}
+            value={product.id}
+            onClick={() => [setCurrentPopup(product), setModalShow(true)]}
+          />
+          <div>
+            <span>
+              <h4>{product.title}</h4>
+              <h4>€{product.price}</h4>
+            </span>
+            <img
+              className="button"
+              key={product.id}
+              src={add}
+              alt="add"
+              onClick={() => handleAdd(product)}
+            />
+          </div>
+        </span>
+      ))}
     </div>
   );
 }
