@@ -1,4 +1,3 @@
-// import { Modal, Button } from "react-bootstrap";
 import { useRecoilValue } from "recoil";
 import { idState } from "../recoil/id/atom";
 import { Modal, Button } from "react-bootstrap"

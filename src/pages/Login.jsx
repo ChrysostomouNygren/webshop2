@@ -9,13 +9,16 @@ import Footer from "../components/Footer";
 import { useRecoilState } from "recoil";
 import { authState, userState, nameState } from "../recoil/auth/atom";
 import { useNavigate } from "react-router-dom";
+import CreateAccount from "./CreateAccount";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useRecoilState(authState);
-  const [user, setUser] = useRecoilState(userState)
+  const [user, setUser] = useRecoilState(userState);
   const [name, setName] = useRecoilState(nameState);
+  const [modalShow, setModalShow] = useState(false);
+
   const navigate = useNavigate();
 
   async function getToken() {
@@ -27,13 +30,12 @@ function Login() {
       }
     );
     setToken(response.data.token);
-    setUser(response.data.userId)
-    console.log(response.data)
+    setUser(response.data.userId);
+    console.log(response.data);
 
     if (response.data.userId == 1216874387060039) {
       navigate("/admin");
-    } 
-    else if (response.data.token) {
+    } else if (response.data.token) {
       navigate("/profile");
     }
   }
@@ -69,9 +71,10 @@ function Login() {
           onClick={() => [clearForm(), getToken()]}
         />
       </form>
-      <a href="#">
+      <CreateAccount show={modalShow} onHide={() => setModalShow(false)} />
+      <button onClick={() => [setModalShow(true)]}>
         <p>Skapa konto</p>
-      </a>
+      </button>
       <a href="#">
         <p>Glömt lösenord?</p>
       </a>
