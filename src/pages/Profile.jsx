@@ -13,6 +13,7 @@ import {
   nameState,
   userDataState,
   authState,
+  addressState,
 } from "../recoil/auth/atom";
 
 
@@ -20,21 +21,23 @@ function Profile() {
   const [user, setUser] = useRecoilState(userState);
   const [token, setToken] = useRecoilState(authState);
   const [name, setName] = useRecoilState(nameState);
+  const [address, setAddress] = useRecoilState(addressState)
   const [userData, setUserData] = useRecoilState(userDataState);
 
   async function getUser() {
     const response = await axios.get(
       `https://k4backend.osuka.dev/users/${user}`
     );
-    console.log(response.data.name.firstname);
-    console.log(response.data);
-    setName(response.data.name.firstname);
     setUserData(response.data);
+
+    // destructuringen fungerade inte kontinuerligt som jag ville, så jag gjorde 2 states för de objekten i medlemsuppgifts-arrayen för att kunna komma åt dess data.
+    setName(response.data.name);
+    setAddress(response.data.address);
   }
   const { email, phone } = userData;
-
-  // destructuring av address fungerar ibland, och ibland inte?
-  const { city, street, number, zipcode } = userData.address;
+  
+  const { firstname, lastname } = name;
+  const { city, street, number, zipcode } = address;
   
   useEffect(() => {
     getUser();
@@ -44,7 +47,7 @@ function Profile() {
   return (
     <div>
       <Header />
-      <h1>Hej {name}!</h1>
+      <h1>Hej {firstname} {lastname}!</h1>
       <h5>Dina nuvarande uppgifter:</h5>
       <p>Email: {email}</p>
       <p>Tel: {phone}</p>

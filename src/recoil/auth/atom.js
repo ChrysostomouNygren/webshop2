@@ -11,7 +11,12 @@ export const userState = atom({
 });
 
 export const nameState = atom({
-  key: "firstname",
+  key: "name",
+  default: "",
+});
+
+export const addressState = atom({
+  key: "address",
   default: "",
 });
 

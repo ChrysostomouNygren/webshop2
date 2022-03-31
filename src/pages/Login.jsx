@@ -31,8 +31,11 @@ function Login() {
     );
     setToken(response.data.token);
     setUser(response.data.userId);
-    console.log(response.data);
+    // consol-loggar för att dubbelkolla vad som returneras
+    // console.log(response.data);
 
+
+    // Admins userId är 1216874387060039, och såhär avgörs inloggningen till adminsidan, eller en vanlig profilsida.
     if (response.data.userId == 1216874387060039) {
       navigate("/admin");
     } else if (response.data.token) {
