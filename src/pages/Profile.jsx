@@ -31,13 +31,15 @@ function Profile() {
     setName(response.data.name.firstname);
     setUserData(response.data);
   }
+  const { email, phone } = userData;
+
+  // destructuring av address fungerar ibland, och ibland inte?
+  const { city, street, number, zipcode } = userData.address;
   
   useEffect(() => {
     getUser();
   }, []);
   
-  const { email, phone, address } = userData;
-  const { city, street, number, zipcode } = address;
   
   return (
     <div>
