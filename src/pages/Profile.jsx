@@ -31,14 +31,14 @@ function Profile() {
     setName(response.data.name.firstname);
     setUserData(response.data);
   }
-  const { email, phone, address } = userData;
-  const { city, street, number, zipcode } = address;
-
+  
   useEffect(() => {
     getUser();
   }, []);
-
-
+  
+  const { email, phone, address } = userData;
+  const { city, street, number, zipcode } = address;
+  
   return (
     <div>
       <Header />
