@@ -15,6 +15,10 @@ function Admin() {
     let path = `/users`;
     navigate(path);
   };
+  const products = () => {
+    let path = `/products`;
+    navigate(path);
+  }
 
   async function getProducts() {
     const response = await axios.get(`https://k4backend.osuka.dev/products`);
@@ -30,6 +34,7 @@ function Admin() {
     <div>
       <Header />
       <button onClick={users}>Användarregister</button>
+      <button onClick={products}>Produktregister</button>
       <ExitBtn />
       <Footer />
     </div>

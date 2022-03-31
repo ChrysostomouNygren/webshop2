@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import UserRegistry from "./pages/UserRegistry";
+import ProductRegistry from "./pages/ProductRegistry";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/users" element={<UserRegistry />} />
+        <Route path="/products" element={<ProductRegistry />} />
       </Routes>
     </div>
   );

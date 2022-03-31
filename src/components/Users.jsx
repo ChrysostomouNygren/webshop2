@@ -3,7 +3,7 @@ import axios from "axios";
 import { Table } from "react-bootstrap";
 
 function Users() {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   async function getUser() {
     const response = await axios.get(`https://k4backend.osuka.dev/users`);
@@ -14,21 +14,19 @@ function Users() {
     // användarlistan
     getUser();
   }, []);
-  console.log(users)
 
   return (
     <div>
-      {users.map((user) => (
-        <Table striped bordered hover size="sm">
-          <thead>
-            <tr>
-              <th>AnvändarID</th>
-              <th>Användarnamn</th>
-              <th>Email</th>
-              <th>Telefonnummer</th>
-            </tr>
-          </thead>
-
+      <Table striped bordered hover size="sm">
+        <thead>
+          <tr>
+            <th>AnvändarID</th>
+            <th>Användarnamn</th>
+            <th>Email</th>
+            <th>Telefonnummer</th>
+          </tr>
+        </thead>
+        {users.map((user) => (
           <tbody>
             <tr>
               <td>{user.id}</td>
@@ -36,10 +34,9 @@ function Users() {
               <td>{user.email}</td>
               <td>{user.phone}</td>
             </tr>
-    
           </tbody>
-        </Table>
-      ))}
+        ))}
+      </Table>
     </div>
   );
 }
