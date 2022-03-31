@@ -15,6 +15,7 @@ import {
   authState,
   addressState,
 } from "../recoil/auth/atom";
+import Favourite from "../components/Favourite";
 
 
 function Profile() {
@@ -53,6 +54,7 @@ function Profile() {
       <p>Tel: {phone}</p>
       <p>Adress: {street} {number}<br/>
       {zipcode} {city}</p>
+      <Favourite />
       <ExitBtn />
       <Footer />
     </div>
