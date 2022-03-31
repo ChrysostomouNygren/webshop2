@@ -10,27 +10,31 @@ import profileSite from "./resources/user-profile-pngrepo-com.png";
 
 // states
 import { authState } from "../recoil/auth/atom";
+import { userState } from "../recoil/auth/atom";
 import { useRecoilState } from "recoil";
 
 function Header() {
   let navigate = useNavigate();
   const [token, setToken] = useRecoilState(authState);
+  const [user, setUser] = useRecoilState(userState);
 
   const home = () => {
-    let path = `/`;
-    navigate(path);
+    navigate(`/`);
   };
   const cart = () => {
-    let path = `/cart`;
-    navigate(path);
+    navigate(`/cart`);
   };
+
+  // ifsats för att avgöra admin eller profile
   const profile = () => {
-    let path = `/profile`;
-    navigate(path);
+    if (user === 1216874387060039) {
+      navigate(`/admin`);
+    } else {
+      navigate(`/profile`);
+    }
   };
   const login = () => {
-    let path = `/login`;
-    navigate(path);
+    navigate(`/login`);
   };
 
   return (
