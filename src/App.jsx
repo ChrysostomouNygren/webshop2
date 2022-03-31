@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import UserRegistry from "./pages/UserRegistry";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/users" element={<UserRegistry />} />
       </Routes>
     </div>
   );
