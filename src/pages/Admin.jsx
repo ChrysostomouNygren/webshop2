@@ -33,6 +33,7 @@ function Admin() {
   return (
     <div>
       <Header />
+      <h3>Jättehemlig adminsida!!!!!!!!</h3>
       <button onClick={users}>Användarregister</button>
       <button onClick={products}>Produktregister</button>
       <ExitBtn />
