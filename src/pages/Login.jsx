@@ -16,30 +16,32 @@ function Login() {
   const [password, setPassword] = useState("");
   const [token, setToken] = useRecoilState(authState);
   const [user, setUser] = useRecoilState(userState);
-  const [name, setName] = useRecoilState(nameState);
   const [modalShow, setModalShow] = useState(false);
 
   const navigate = useNavigate();
 
   async function getToken() {
-    const response = await axios.post(
-      "https://k4backend.osuka.dev/auth/login",
-      {
-        username: username,
-        password: password,
+    try {
+      const response = await axios.post(
+        "https://k4backend.osuka.dev/auth/login",
+        {
+          username: username,
+          password: password,
+        }
+      );
+      setToken(response.data.token);
+      setUser(response.data.userId);
+
+      // Admins userId är 1216874387060039, och såhär avgörs inloggningen till adminsidan, eller en vanlig profilsida.
+      if (response.data.userId == 1216874387060039) {
+        navigate("/admin");
+      } else if (response.data.token) {
+        navigate("/profile");
       }
-    );
-    setToken(response.data.token);
-    setUser(response.data.userId);
-    // consol-loggar för att dubbelkolla vad som returneras
-    // console.log(response.data);
-
-
-    // Admins userId är 1216874387060039, och såhär avgörs inloggningen till adminsidan, eller en vanlig profilsida.
-    if (response.data.userId == 1216874387060039) {
-      navigate("/admin");
-    } else if (response.data.token) {
-      navigate("/profile");
+    } catch (error) {
+      if (error.response) {
+        alert("Fel användarnamn eller lösenord! Testa igen, eller registrera dig :)");
+      }
     }
   }
 
