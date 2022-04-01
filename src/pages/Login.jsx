@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 // states
 import { useRecoilState } from "recoil";
-import { authState, userState, nameState } from "../recoil/auth/atom";
+import { authState, userState } from "../recoil/auth/atom";
 import { useNavigate } from "react-router-dom";
 import CreateAccount from "./CreateAccount";
 
@@ -44,6 +44,7 @@ function Login() {
       }
     }
   }
+
 
   function clearForm() {
     setUsername("");
