@@ -6,7 +6,8 @@ import "./css/ProductList.css";
 
 // png/svgs ist för knappar
 import add from "./resources/add-tool-pngrepo-com.png";
-import addHeart from "./resources/heart-pngrepo-com.png";
+import removeHeart from "./resources/heart-pngrepo-com.png";
+import addHeart from "./resources/filled-heart-pngrepo-com.png";
 
 // states
 import { useRecoilState } from "recoil";
@@ -27,6 +28,7 @@ function ProductList() {
   // modalen (popupen) är default false, vid klick blir den true och poppas upp
   const [modalShow, setModalShow] = useState(false);
   const [heart, setHeart] = useRecoilState(heartState);
+  const [love, setLove] = useState(false);
 
   // Använder mig av axios för att hämta produkterna från backenden.
   function getProducts() {
@@ -58,6 +60,13 @@ function ProductList() {
     setHeart(newHeart);
   }
 
+  // function changeOfHeart() {
+  //   if (document.getElementById("heartish") === heart) {
+  //     return
+  //     document.getElementById("heartish") = removeHeart;
+  //   }
+  // }
+
   // useEffect för att bara kalla på backendens produkter en gång, så att jag inte råkar krascha servern :)
   useEffect(() => {
     getProducts();
@@ -86,7 +95,14 @@ function ProductList() {
               alt="add"
               onClick={() => handleAdd(product)}
             />
-            <img src={addHeart} alt="heart-symbol" key={product.id} onClick={() => handleHeart(product)} />
+            {/* återkom till favorit-delen när du inte är dum i huvudet */}
+            <img
+              id="heartish"
+              src={love ? addHeart : removeHeart }
+              alt="heart-symbol"
+              key={product.id}
+              onClick={() => [handleHeart(product), setLove(prevMode => !prevMode)]}
+            />
           </div>
         </span>
       ))}
