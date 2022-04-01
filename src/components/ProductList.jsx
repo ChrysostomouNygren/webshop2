@@ -6,14 +6,11 @@ import "./css/ProductList.css";
 
 // png/svgs ist för knappar
 import add from "./resources/add-tool-pngrepo-com.png";
-import removeHeart from "./resources/heart-pngrepo-com.png";
-import addHeart from "./resources/filled-heart-pngrepo-com.png";
 
 // states
 import { useRecoilState } from "recoil";
 import { cartState } from "../recoil/cart/atom";
 import { idState } from "../recoil/id/atom";
-import { heartState } from "../recoil/heart/atom";
 
 // components
 import Popup from "./Popup";
@@ -27,8 +24,6 @@ function ProductList() {
   const [currentPopup, setCurrentPopup] = useRecoilState(idState);
   // modalen (popupen) är default false, vid klick blir den true och poppas upp
   const [modalShow, setModalShow] = useState(false);
-  const [heart, setHeart] = useRecoilState(heartState);
-  const [love, setLove] = useState(false);
 
   // Använder mig av axios för att hämta produkterna från backenden.
   function getProducts() {
@@ -55,10 +50,6 @@ function ProductList() {
     setCart(newCart);
   }
 
-  function handleHeart(product) {
-    const newHeart = [...heart, product];
-    setHeart(newHeart);
-  }
 
   // function changeOfHeart() {
   //   if (document.getElementById("heartish") === heart) {
@@ -94,14 +85,6 @@ function ProductList() {
               src={add}
               alt="add"
               onClick={() => handleAdd(product)}
-            />
-            {/* återkom till favorit-delen när du inte är dum i huvudet */}
-            <img
-              id="heartish"
-              src={love ? addHeart : removeHeart }
-              alt="heart-symbol"
-              key={product.id}
-              onClick={() => [handleHeart(product), setLove(prevMode => !prevMode)]}
             />
           </div>
         </span>
