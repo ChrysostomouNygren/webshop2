@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // komponenter
 import Header from "../components/Header";
@@ -16,13 +17,14 @@ import {
   addressState,
 } from "../recoil/auth/atom";
 
-
 function Profile() {
   const [user, setUser] = useRecoilState(userState);
   const [token, setToken] = useRecoilState(authState);
   const [name, setName] = useRecoilState(nameState);
-  const [address, setAddress] = useRecoilState(addressState)
+  const [address, setAddress] = useRecoilState(addressState);
   const [userData, setUserData] = useRecoilState(userDataState);
+  const navigate = useNavigate();
+
 
   async function getUser() {
     const response = await axios.get(
@@ -35,28 +37,59 @@ function Profile() {
     setAddress(response.data.address);
   }
   const { email, phone } = userData;
-  
+
   const { firstname, lastname } = name;
   const { city, street, number, zipcode } = address;
-  
+
   useEffect(() => {
     getUser();
   }, []);
-  
-  
-  return (
-    <div>
-      <Header />
-      <h1>Hej {firstname} {lastname}!</h1>
-      <h5>Dina nuvarande uppgifter:</h5>
-      <p>Email: {email}</p>
-      <p>Tel: {phone}</p>
-      <p>Adress: {street} {number}<br/>
-      {zipcode} {city}</p>
-      <ExitBtn />
-      <Footer />
-    </div>
-  );
+
+  console.log(userData.role);
+
+  function AdminBtn() {
+    return <button onClick={() => navigate("/admin")}>hemlig adminsida</button>;
+  }
+  if (userData.role === "admin") {
+    return (
+      <div>
+        <Header />
+        <h1>
+          Hej {firstname} {lastname}!
+        </h1>
+        <AdminBtn />
+        <h5>Dina nuvarande uppgifter:</h5>
+        <p>Email: {email}</p>
+        <p>Tel: {phone}</p>
+        <p>
+          Adress: {street} {number}
+          <br />
+          {zipcode} {city}
+        </p>
+        <ExitBtn />
+        <Footer />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Header />
+        <h1>
+          Hej {firstname} {lastname}!
+        </h1>
+        <h5>Dina nuvarande uppgifter:</h5>
+        <p>Email: {email}</p>
+        <p>Tel: {phone}</p>
+        <p>
+          Adress: {street} {number}
+          <br />
+          {zipcode} {city}
+        </p>
+        <ExitBtn />
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default Profile;

@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 // states
 import { useRecoilState } from "recoil";
-import { authState, userState } from "../recoil/auth/atom";
+import { authState, roleState, userDataState, userState } from "../recoil/auth/atom";
 import { useNavigate } from "react-router-dom";
 import CreateAccount from "./CreateAccount";
 
@@ -16,7 +16,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [token, setToken] = useRecoilState(authState);
   const [user, setUser] = useRecoilState(userState);
+  const [userData, setUserData] = useRecoilState(userDataState)
   const [modalShow, setModalShow] = useState(false);
+  const [role, setRole] = useRecoilState(roleState);
 
   const navigate = useNavigate();
 
@@ -32,8 +34,7 @@ function Login() {
       setToken(response.data.token);
       setUser(response.data.userId);
 
-      // Admins userId är 1216874387060039, och såhär avgörs inloggningen till adminsidan, eller en vanlig profilsida.
-      if (response.data.userId == 1216874387060039) {
+      if (userData.role === "admin") {
         navigate("/admin");
       } else if (response.data.token) {
         navigate("/profile");
@@ -45,10 +46,12 @@ function Login() {
     }
   }
 
+  // console.log(userData)
 
   function clearForm() {
     setUsername("");
     setPassword("");
+    setRole(userData.role)
   }
 
   return (

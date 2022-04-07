@@ -5,6 +5,11 @@ export const authState = atom({
   default: "",
 });
 
+export const roleState = atom({
+  key: "role",
+  default: "",
+})
+
 export const userState = atom({
   key: "user",
   default: null,

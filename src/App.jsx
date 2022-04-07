@@ -1,8 +1,10 @@
 import "./App.css";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 
-import { userState } from "./recoil/auth/atom";
+import { userState, userDataState, roleState } from "./recoil/auth/atom";
 import { useRecoilState } from "recoil";
 
 import Home from "./pages/Home";
@@ -15,7 +17,22 @@ import ProductRegistry from "./pages/ProductRegistry";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
+  const [userData, setUserData] = useRecoilState(userDataState);
+  const [role, setRole] = useRecoilState(roleState);
 
+  async function getUser() {
+    const response = await axios.get(
+      `https://k4backend.osuka.dev/users/${user}`
+    );
+    setUserData(response.data);
+    setRole(response.data.role)
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  console.log(userData)
+  console.log(userData.role)
   return (
     <div className="App">
       <Routes>
@@ -23,7 +40,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={user ? <Profile /> : <Login />} />
-        <Route path="/admin" element={user === 1216874387060039 ? <Admin /> : <Login />} />
+        <Route path="/admin" element={userData.role === "admin" ? <Admin /> : <Login />} />
         <Route path="/users" element={<UserRegistry />} />
         <Route path="/products" element={<ProductRegistry />} />
       </Routes>
